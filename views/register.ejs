@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<%- include('../views/head'); %>
+
+<body>
+
+<div class="loginForm">
+  <form method="POST" action="/register" enctype="multipart/form-data" >
+    <h1>Register</h1>
+
+    <label for="userName">Username</label>
+    <input type="text" placeholder="Enter Username" name="userName" class="userName" value="<%= typeof userName != 'undefined' ? userName : '' %>" required>
+    <label for="id">Id</label>
+    <input type="text" placeholder="Enter Id" name="id" class="id" value="<%= typeof id != 'undefined' ? id : '' %>" required>
+    <label for="password">Password</label>
+    <input type="password" placeholder="Enter Password" name="password" value="<%= typeof password != 'undefined' ? password : '' %>" class="password" required>
+    <label for="file">Select image</label>
+    <input type="file" name="file" />
+
+    <input type="submit" value="Register" />
+    <p class="error"><%= typeof error != 'undefined' ? error : '' %></p>
+  </form>
+  <a href='/login'>Login</a>
+</div>
+</body>
+
+</html>
