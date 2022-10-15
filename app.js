@@ -20,6 +20,9 @@ app.use(express.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//const createTable = require('./ddb_createtable.js');
+
+
 app.get('/', (req, res) => {
     if (!req.session.loggedin) {
         res.render('login');
@@ -50,8 +53,9 @@ app.get('/login', (req, res) => {
 
 const PORT = parseInt(process.env.PORT) || 8080;
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
+    console.log(`App listening on port ${PORT}`);
+    console.log(process.env);
+    console.log('Press Ctrl+C to quit.');
 });
 
 
