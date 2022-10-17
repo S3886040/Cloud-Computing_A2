@@ -1,18 +1,5 @@
 const AWS = require('aws-sdk');
 AWS.config.update({ region: 'us-east-1' });
-const config = require('./config.js');
-if (config.NODE_ENV == 'development') {
-    AWS.config.update({
-        region: "us-east-1",
-        endpoint: 'http://localhost:8000'
-    });
-} else if (config.NODE_ENV == 'production') {
-    AWS.config.update({
-        accessKeyId: config.accessKeyId,
-        secretAccessKey: config.secretAccessKey,
-        region: "us-east-1"
-    });
-};
 
 const ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
