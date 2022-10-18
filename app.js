@@ -8,6 +8,7 @@ const path = require('path');
 
 const config = require('./config.js');
 process.env.NODE_ENV = config.NODE_ENV;
+process.env.PORT = config.PORT;
 
 app.set('view engine', 'ejs');
 
