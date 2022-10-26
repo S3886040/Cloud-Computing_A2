@@ -2,8 +2,10 @@ const AWS = require('aws-sdk');
 const fetch = require('node-fetch');
 const fs = require('fs');
 
-const s3 = new AWS.S3({});
 
+const config = require('./config.js');
+AWS.config.update(config.aws_remote_config);
+const s3 = new AWS.S3({});
 
 let rawdata = fs.readFileSync('a2.json');
 let data = JSON.parse(rawdata);

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<%- include('../views/navbar', {userName: user.user_name}); %>
+
+<html>
+  <%- include('../views/head'); %>
+  <body>
+    <section class="container section">
+        <form action="/query" method="post">
+     
+            <div class="mb-3">
+                <label for="subject" class="form-label">Title</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="title" 
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Year</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="year" 
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Artist</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="artist" 
+            </div>
+            <input type="submit" class="btn btn-secondary" value="Submit">
+
+        </form>
+    </section>
+
+    <section class="container section">
+        <% if(typeof results != 'undefined') { %>
+            <% console.log("got reults"); %>
+            <% results.forEach(function(result){ %>
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Artist: <%= result.Artist.S %></p>
+                        <p class="card-text">Title: <%= result.Title.S %></p>
+                        <p class="card-text">Year: <%= result.Annual_Time.S %></p>
+                        <img src=<%= result.url %> alt="album image" class="messageImg img-fluid" />
+                    <form  method="post" id="subscribeForm" action="/subscribew">     
+                        <input type="hidden" value="<%= result.Artist.S %>" name="Artist" id="Artist" >
+                        <input type="hidden" value="<%= result.Title.S %>" name="Title" id="Title" >
+                        <input type="hidden" value="<%= result.Annual_Time.S %>" name="Annual_Time"  id="Year" >
+                        <input type="submit" class="btn btn-secondary" value="Subscribe" onsubmit="subscribe(event)">
+                    </form>
+                    </div>
+                    
+                </div>
+            <% });%>
+        <% }%>
+            
+        
+        <p class="error"><%= typeof error != 'undefined' ? error : '' %></p>
+    </section>
+  </body>
+</html>

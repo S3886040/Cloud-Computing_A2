@@ -1,17 +1,6 @@
 const AWS = require('aws-sdk');
 const config = require('./config.js');
-if (config.NODE_ENV == 'development') {
-    AWS.config.update({
-        region: "us-east-1",
-        endpoint: 'http://localhost:8000'
-    });
-} else if (config.NODE_ENV == 'production') {
-    AWS.config.update({
-        accessKeyId: config.accessKeyId,
-        secretAccessKey: config.secretAccessKey,
-        region: "us-east-1"
-    });
-}
+AWS.config.update(config.aws_remote_config);
 
 var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 const fs = require('fs');
@@ -30,8 +19,8 @@ data.songs.forEach(song => {
         PutRequest: {
             Item: {
                 "Title": { "S": song.title },
-                "artist": { "S": song.artist },
-                "year": { "N": song.year },
+                "Artist": { "S": song.artist },
+                "Annual_Time": { "S": song.year },
                 "web_url": { "S": song.web_url },
                 "img_url": { "S": song.img_url }
             }

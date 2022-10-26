@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<%- include('../views/navbar', {userName: user.user_name}); %>
+
+<html>
+  <%- include('../views/head'); %>
+  <body>
+    <section class="section container">
+        <% if(typeof subscriptions != 'undefined') { %>
+            <% let count = 0 %>
+            <% subscriptions.forEach(function(subscription){ %>
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Artist: <%= subscription.Artist.S %></p>
+                        <p class="card-text">Title: <%= subscription.Title.S %></p>
+                        <p class="card-text">Year: <%= subscription.Annual_Time.S %></p>
+                        <img src=<%= subscription.url %> alt="album image" class="messageImg img-fluid" />
+                    <form  method="post" id="subscribeForm" action="/unSubscribe">     
+                        <input type="hidden" value="<%= count %>" name="count" id="Artist" >
+                        <input type="submit" class="btn btn-secondary" value="UnSubscribe" >
+                    </form>
+                    <% count++ %>
+                    </div>
+                    
+                </div>
+            <% });%>
+        <% }%>
+    </section>
+  </body>
+</html>
