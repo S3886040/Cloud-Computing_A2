@@ -52,14 +52,20 @@ checkSubscription = (title, userName) => {
                 console.log("Error in check sub", err);
                 reject(err);
             } else {
-                data.Items.forEach(function (element) {
-                    element.subscriptions.L.forEach(item => {
-                        if (item.M.Title.S === title) {
-                            found = true;
-                        }
+                if (typeof data.Items[0].subscriptions != 'undefined') {
+                    data.Items.forEach(function (element) {
+                        element.subscriptions.L.forEach(item => {
+                            if (item.M.Title.S === title) {
+                                found = true;
+                            }
+                        });
                     });
-                });
-                resolve(found);
+                    resolve(found);
+                } else {
+                    resolve(found);
+                }
+                    
+                
             }
         });
     })
