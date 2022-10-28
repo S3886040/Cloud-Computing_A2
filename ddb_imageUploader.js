@@ -2,7 +2,6 @@ const AWS = require('aws-sdk');
 const fetch = require('node-fetch');
 const fs = require('fs');
 
-
 const config = require('./config.js');
 AWS.config.update(config.aws_remote_config);
 const s3 = new AWS.S3({});

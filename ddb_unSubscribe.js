@@ -3,9 +3,6 @@ const config = require('./config.js');
 AWS.config.update(config.aws_remote_config);
 
 const docClient = new AWS.DynamoDB.DocumentClient();
-const ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
-const ddb_getSubscriptions = require('./ddb_getSubscriptions.js');
-
 
 module.exports.unSubscribe = (index, userName) => {
     const promise = new Promise((resolve, reject) => {

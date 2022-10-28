@@ -19,7 +19,6 @@ module.exports.queryMusicTable = (artist, title, year) => {
         };
         ddb.scan(params, function (err, data) {
             if (err) {
-                console.log("Error", err);
                 reject(err);
             } else {
                 let res = [];

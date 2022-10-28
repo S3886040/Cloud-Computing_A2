@@ -8,7 +8,6 @@ var ddb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
 module.exports.addSubscription = (sub, userName) => {
     const promise = new Promise((resolve, reject) => {
-        console.log("Title b4 csub",sub.Title);
         checkSubscription(sub.Title, userName).then(found => {
             if (!found) {
                 let params = {

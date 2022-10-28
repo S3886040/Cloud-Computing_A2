@@ -23,7 +23,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Used only for creation and assesment criteria
+// Used only for creation and assessment criteria
 //const createTable = require('./ddb_createtable.js');
 //const writeFile = require('./ddb_writeFile.js');
 //const uploadImage = require('./ddb_imageUploader.js');
@@ -88,7 +88,9 @@ app.get('/subscriptions', (req, res) => {
                 user: req.session.user,
                 subscriptions: data
             });
-        });
+        }).catch(err => {
+            console.log(err);
+        });;
     }
 });
 
@@ -101,7 +103,6 @@ app.get('/query', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    console.log(req.body);
     ddb_getUser.getUser(req.body.user_name).then(data => {
         if (data.password === req.body.password) {
             req.session.user = {
@@ -119,13 +120,11 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    console.log(req.body);
     ddb_getUser.getUser(req.body.user_name).then(data => {
         if (Object.keys(data).length != 0) {
             res.render('register', { error: "User Name already exists" })
         } else {
             ddb_writeUser.addUser(req.body.user_name, req.body.email, req.body.password).then(data => {
-                console.log(data);
                 res.redirect('login');
             });
         };
@@ -135,7 +134,6 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/query', (req, res) => {
-    console.log(req.body);
     ddb_queryMusicTable.queryMusicTable(req.body.artist, req.body.title, req.body.year).then(data => {
         if (data.length == 0) {
             res.render('query', {
@@ -157,17 +155,20 @@ app.post('/query', (req, res) => {
 app.post('/unSubscribe', (req, res) => {
     ddb_unSubscribe.unSubscribe(req.body.count, req.session.user.user_name).then(() => {
         res.redirect('/subscriptions');
-    });
+    }).catch(err => {
+        console.log(err);
+    });;
 });
 
 app.post('/subscribe', (req, res) => {
-    console.log(req.body);
     ddb_addSubscription.addSubscription(req.body, req.session.user.user_name).then(() => {
         res.redirect('/subscriptions');
-    });
+    }).catch(err => {
+        console.log(err);
+    });;
 });
 
-const PORT = parseInt(process.env.PORT) || 8080;
+const PORT = config.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
     console.log(process.env.NODE_ENV); 

@@ -27,7 +27,6 @@
 
     <section class="container section">
         <% if(typeof results != 'undefined') { %>
-            <% console.log("got reults"); %>
             <% results.forEach(function(result){ %>
                 <div class="card">
                     <div class="card-body">
@@ -35,11 +34,11 @@
                         <p class="card-text">Title: <%= result.Title.S %></p>
                         <p class="card-text">Year: <%= result.Annual_Time.S %></p>
                         <img src=<%= result.url %> alt="album image" class="messageImg img-fluid" />
-                    <form  method="post" id="subscribeForm" action="/subscribew">     
+                    <form  method="post" id="subscribeForm" action="/subscribe">     
                         <input type="hidden" value="<%= result.Artist.S %>" name="Artist" id="Artist" >
                         <input type="hidden" value="<%= result.Title.S %>" name="Title" id="Title" >
                         <input type="hidden" value="<%= result.Annual_Time.S %>" name="Annual_Time"  id="Year" >
-                        <input type="submit" class="btn btn-secondary" value="Subscribe" onsubmit="subscribe(event)">
+                        <input type="submit" class="btn btn-secondary" value="Subscribe" >
                     </form>
                     </div>
                     

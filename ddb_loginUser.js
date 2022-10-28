@@ -17,11 +17,10 @@ module.exports.getUser = (userName) => {
 
         ddb.query(params, function (err, data) {
             if (err) {
-                console.log("Error", err);
                 reject(err);
             } else {
                 let res = {};
-                data.Items.forEach(function (element, index, array) {
+                data.Items.forEach(element => {
                     res['password'] = element.password.S;
                     res['user_name'] = element.user_name.S;
                     res['email'] = element.email.S;
